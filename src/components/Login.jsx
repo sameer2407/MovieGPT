@@ -2,22 +2,31 @@ import React, { useRef, useState } from "react";
 import Header from "./Header";
 import Poster from "../assets/poster.jpg";
 import { isValidEmail, isValidPassword } from "../utils/validate";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 import { auth } from "../utils/firebase";
+
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMsgEmail, setErrorMsgEmail] = useState("");
   const [errorMsgPassword, setErrorMsgPassword] = useState("");
   const [errorSignUp, setErrorSignUp] = useState("");
+  const [signInError, setSignInError] = useState(""); // New state for sign-in error message
+  const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
+  const navigate = useNavigate();
 
   const handleValidation = (e) => {
     e.preventDefault();
     const emailValue = email.current.value;
     const passwordValue = password.current.value;
+
     let isValid = true;
 
     if (!isValidEmail(emailValue)) {
@@ -35,23 +44,50 @@ const Login = () => {
     }
 
     if (isValid) {
-      createUserWithEmailAndPassword(auth, emailValue, passwordValue)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          console.log(user, "SignUP Succesfully");
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
+      if (isSignInForm) {
+        signInWithEmailAndPassword(auth, emailValue, passwordValue)
+          .then((userCredential) => {
+            const user = userCredential.user;
+            console.log(user, "Signed In Successfully");
+            navigate("/browser");
+            setSignInError("");
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            setSignInError("Invalid email or password. Please try again.");
+          });
+      } else {
+        const nameValue = name.current.value;
+        createUserWithEmailAndPassword(auth, emailValue, passwordValue)
+          .then((userCredential) => {
+            const user = userCredential.user;
+            updateProfile(auth.currentUser, {
+              displayName: nameValue,
+            })
+              .then(() => {
+                console.log("Name added");
+                // ...
+              })
+              .catch((error) => {});
 
-          console.log(errorMessage);
-          setErrorSignUp(`${errorCode}...${errorMessage}`);
-        });
+            console.log(user, "Signed Up Successfully");
+            setErrorSignUp("");
+            navigate("/browser");
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            setErrorSignUp(`${errorCode}...${errorMessage}`);
+          });
+      }
     }
   };
 
   const toggleSignInForm = () => {
     setIsSignInForm(!isSignInForm);
+    setErrorSignUp(""); // Clear error message when switching forms
+    setSignInError(""); // Clear sign-in error message when switching forms
   };
 
   return (
@@ -78,9 +114,9 @@ const Login = () => {
                   type="text"
                   placeholder="Full Name"
                   className="p-3 mb-4 w-full rounded"
+                  ref={name}
                 />
               )}
-
               <input
                 type="email"
                 placeholder="Email Address"
@@ -106,7 +142,14 @@ const Login = () => {
                   Forgot password?
                 </a>
               </div>
-              {errorSignUp && <p className="text-red-500">{errorSignUp}</p>}
+              {isSignInForm && signInError && (
+                <p className="text-red-500 bg-red-100 border border-red-400  px-4 py-3 rounded relative mb-4">
+                  {signInError}
+                </p>
+              )}
+              {!isSignInForm && errorSignUp && (
+                <p className="text-red-500">{errorSignUp}</p>
+              )}
               <button
                 className="w-full bg-[#D62176] text-white py-3 rounded mb-6"
                 type="submit"
