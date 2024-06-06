@@ -85,8 +85,8 @@ const Login = () => {
 
   const toggleSignInForm = () => {
     setIsSignInForm(!isSignInForm);
-    setErrorSignUp(""); // Clear error message when switching forms
-    setSignInError(""); // Clear sign-in error message when switching forms
+    setErrorSignUp("");
+    setSignInError("");
   };
 
   return (
