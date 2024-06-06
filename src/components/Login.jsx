@@ -67,7 +67,6 @@ const Login = () => {
             })
               .then(() => {
                 console.log("Name added");
-                // ...
               })
               .catch((error) => {});
 
