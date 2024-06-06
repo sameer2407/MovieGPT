@@ -1,7 +1,6 @@
 import React from "react";
 import Header from "./Header";
 import { MdConstruction } from "react-icons/md";
-import { FaUser } from "react-icons/fa";
 
 const Browse = () => {
   return (
