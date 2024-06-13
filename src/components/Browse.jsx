@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "./Header";
 import { MdConstruction } from "react-icons/md";
+import { OPTIONS } from "../utils/constants";
 
 const Browse = () => {
+  const getNowPlayingMovies = async () => {
+    const data = await fetch(
+      "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",
+      OPTIONS
+    );
+    const json = await data.json();
+    console.log("HI");
+    console.log(json);
+  };
+
+  useEffect(() => {
+    getNowPlayingMovies(); // Call the function here
+  }, []);
+
   return (
     <div className="bg-[#231239] min-h-screen">
       <Header />
