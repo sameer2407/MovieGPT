@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import Logo from "../assets/LogoNew.svg";
 import { FaUser } from "react-icons/fa";
 import DropdownMenu from "./DropdownMenu";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser, removeUser } from "../utils/userSlice";
+import { flagToggle } from "../utils/loginSlice";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Header = () => {
   const flag = useSelector((state) => state.flag); // Assuming your flag is in the state object
@@ -11,6 +17,29 @@ const Header = () => {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in
+        console.log("current user", user);
+        const { uid, email, displayName } = user;
+        dispatch(addUser({ uid, email, displayName }));
+        dispatch(flagToggle(true));
+        navigate("/browser");
+      } else {
+        // User is signed out
+        dispatch(removeUser());
+        dispatch(flagToggle(false));
+        navigate("/");
+      }
+    });
+
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  }, [dispatch]);
 
   return (
     <div className="z-10 flex justify-between items-center">
