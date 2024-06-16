@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Header from "./Header";
 import { MdConstruction } from "react-icons/md";
 import { OPTIONS } from "../utils/constants";
@@ -13,7 +13,7 @@ const Browse = () => {
   return (
     <div className="bg-[#231239] min-h-screen">
       <Header />
-      <MainContainer></MainContainer>
+      <MainContainer />
       <div className="flex justify-center items-center min-h-[calc(100vh-4rem)]">
         <div className="bg-[#231239] text-[#F4AB4F] text-center p-6 border border-[#F4AB4F] rounded-lg shadow-lg m-4">
           <MdConstruction className="mx-auto text-4xl mb-2" />

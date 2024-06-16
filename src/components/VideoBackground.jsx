@@ -6,7 +6,7 @@ const VideoBackground = ({ imagePath }) => {
   }
 
   return (
-    <div className="absolute inset-0 z-0 w-full h-full md:h-auto">
+    <div className="absolute inset-0 z-0">
       <img
         src={`https://image.tmdb.org/t/p/original${imagePath}`}
         alt="Video Background"
