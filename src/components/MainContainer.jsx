@@ -20,7 +20,7 @@ const MainContainer = () => {
   const { original_title, overview, backdrop_path } = mainMovie;
 
   return (
-    <div className="relative w-full h-auto ">
+    <div className="relative w-full h-auto">
       <VideoBackground imagePath={backdrop_path} />
       <div className="relative z-10">
         <VideoTitle title={original_title} overview={overview} />

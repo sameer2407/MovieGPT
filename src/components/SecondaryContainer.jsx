@@ -1,9 +1,12 @@
 import React from "react";
+import MovieList from "./MovieList";
+import { useSelector } from "react-redux";
 
 const SecondaryContainer = () => {
+  const movies = useSelector((store) => store.movies);
   return (
     <div>
-      <img scr="https://image.tmdb.org/t/p/original"></img>
+      <MovieList title={"NowPLaying"} movies={movies.nowPlayingMovies} />
     </div>
   );
 };

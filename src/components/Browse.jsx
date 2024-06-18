@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { addNowPlayingMovies } from "../utils/movieSlice";
 import useNowPlayingMovies from "../../hooks/useNowPlayingMovies";
 import MainContainer from "./MainContainer";
+import SecondaryContainer from "./SecondaryContainer";
 
 const Browse = () => {
   useNowPlayingMovies();
@@ -14,6 +15,7 @@ const Browse = () => {
     <div className="bg-[#231239] min-h-screen">
       <Header />
       <MainContainer />
+      <SecondaryContainer></SecondaryContainer>
       <div className="flex justify-center items-center min-h-[calc(100vh-4rem)]">
         <div className="bg-[#231239] text-[#F4AB4F] text-center p-6 border border-[#F4AB4F] rounded-lg shadow-lg m-4">
           <MdConstruction className="mx-auto text-4xl mb-2" />
