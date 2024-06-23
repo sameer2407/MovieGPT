@@ -10,7 +10,7 @@ const MovieList = ({ title, movies }) => {
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
-      items: 5,
+      items: 6,
     },
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -27,7 +27,7 @@ const MovieList = ({ title, movies }) => {
   };
 
   return (
-    <div className="text-[#F4AB4F] bg-[#231239] p-8">
+    <div className="text-[#F4AB4F] bg-[#231239] p-2">
       <div className="mb-2">
         <h1 className="text-xl font-bold">{title}</h1>
       </div>
