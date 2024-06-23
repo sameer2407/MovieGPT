@@ -28,8 +28,8 @@ const MovieList = ({ title, movies }) => {
 
   return (
     <div className="text-[#F4AB4F] bg-[#231239] p-8">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold">{title}</h1>
+      <div className="mb-2">
+        <h1 className="text-xl font-bold">{title}</h1>
       </div>
       <Carousel responsive={responsive}>
         {movies.map((movie, index) => (
