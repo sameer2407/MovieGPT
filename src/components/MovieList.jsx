@@ -4,8 +4,8 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
 const MovieList = ({ title, movies }) => {
-  console.log("Rendering MovieList");
-  console.log(movies);
+  // console.log("Rendering MovieList");
+  // console.log(movies);
 
   const responsive = {
     superLargeDesktop: {
