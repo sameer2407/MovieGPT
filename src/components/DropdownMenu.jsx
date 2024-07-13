@@ -1,7 +1,7 @@
 import React from "react";
 import { auth } from "../utils/firebase";
 import { signOut } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { flagToggle } from "../utils/loginSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -22,17 +22,23 @@ const DropdownMenu = () => {
   };
 
   return (
-    <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-50">
+    <div className="absolute right-0 mt-2 w-48 bg-[#231239] text-[#F4AB4F] rounded-lg shadow-lg shadow-[#4a2b5e] z-50">
       <ul className="py-1">
-        <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">
+        <li className="px-4 py-2 hover:bg-[#4a2b5e] cursor-pointer">
           {userName}
         </li>
-        <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">
+        {/* <li className="px-4 py-2 hover:bg-[#4a2b5e] cursor-pointer">
           Account Details
-        </li>
-        <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Help</li>
+        </li> */}
+        {/* <li className="px-4 py-2 hover:bg-[#4a2b5e] cursor-pointer">Help</li> */}
+        <Link to={"/browser/watchlist"}>
+          <li className="px-4 py-2 hover:bg-[#4a2b5e] cursor-pointer">
+            Watchlist
+          </li>
+        </Link>
+
         <li
-          className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
+          className="px-4 py-2 hover:bg-[#4a2b5e] cursor-pointer"
           onClick={handleSignOut}
           onMouseEnter={(e) => (e.target.style.cursor = "pointer")}
         >

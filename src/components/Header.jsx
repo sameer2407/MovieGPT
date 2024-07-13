@@ -10,9 +10,12 @@ import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { IoSearchSharp } from "react-icons/io5";
 import { toggleGPT } from "../utils/gptSlice";
+import { Link } from "react-router-dom";
+import { IoIosHome } from "react-icons/io";
 
 const Header = () => {
   const flag = useSelector((state) => state.flag);
+  const togg = useSelector((state) => state.gpt.toggle);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -52,13 +55,36 @@ const Header = () => {
       <div className="relative">
         {flag ? (
           <div className="user text-[#F4AB4F] py-8 px-3 flex">
-            <button
-              className="text-gray-300 px-2 font-semibold py-1 rounded-md transition-transform transform hover:scale-105 w-full"
-              onClick={handleGptSearchClick}
-            >
-              <IoSearchSharp className="text-2xl text-[#F4AB4F]" />
-              {/* <span>GPT</span> */}
-            </button>
+            {/* <Link to={"/browser/gpt"}>
+              <button
+                className="text-gray-300 px-2 font-semibold py-1 rounded-md transition-transform transform hover:scale-105 w-full"
+                onClick={handleGptSearchClick}
+              >
+                <IoSearchSharp className="text-2xl text-[#F4AB4F]" />
+              </button>
+            </Link> */}
+            {!togg ? (
+              <>
+                <Link to={"/browser/gpt"}>
+                  <button
+                    className="text-gray-300 px-2 font-semibold py-1 rounded-md transition-transform transform hover:scale-105 w-full"
+                    onClick={handleGptSearchClick}
+                  >
+                    <IoSearchSharp className="text-2xl text-[#F4AB4F]" />
+                  </button>
+                </Link>
+              </>
+            ) : (
+              <Link to={"/browser"}>
+                <button
+                  className="text-gray-300 px-2 font-semibold py-1 rounded-md transition-transform transform hover:scale-105 w-full"
+                  onClick={handleGptSearchClick}
+                >
+                  <IoIosHome className="text-2xl text-[#F4AB4F]" />
+                </button>
+              </Link>
+            )}
+
             <FaUser
               className="text-3xl cursor-pointer mx-2"
               onClick={toggleDropdown}

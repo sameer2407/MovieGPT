@@ -38,6 +38,7 @@ const MovieList = ({ title, movies }) => {
             title={movie?.original_title}
             link={`https://image.tmdb.org/t/p/w500${movie?.backdrop_path}`}
             rating={movie.vote_average}
+            id={movie.id}
           />
         ))}
       </Carousel>
